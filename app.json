@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Klassis App 3",
+    "slug": "klassis-3",
+    "privacy": "public",
+    "sdkVersion": "31.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon-1024.png",
+    "splash": {
+      "image": "./assets/images/klassis-splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#715f75"
+    }, 
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.klassis.klassisapp2019"
+    },
+    "android": {
+      "package": "com.klassis.klassisapp2019"
+    }
+  }
+}
