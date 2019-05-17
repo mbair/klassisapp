@@ -1,25 +1,10 @@
 import React, { Component } from 'react';
-import { AsyncStorage, StatusBar, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { StatusBar, Image, ScrollView } from 'react-native';
 import {
   Root,
-  Container,
-  Header,
-  Body,
-  Title,
-  Subtitle,
-  Content,
   Text,
-  Item,
-  Input,
-  Button,
-  Icon,
   View,
-  Left,
-  Right,
-  Toast,
   Spinner,
-  List,
-  ListItem
 } from "native-base";
 import Colors from '../../constants/Colors';
 import styles from "./styles";
@@ -58,11 +43,6 @@ export default class ProfileScreen extends Component {
     }
   }
 
-  _signOutAsync = async () => {
-    await AsyncStorage.clear();
-    this.props.navigation.navigate('Auth');
-  }
-
   _getData() {
     this.setState({ isLoading: true });
     return fetch('http://www.klassis.hu/app/json/data_users.php', {
@@ -73,12 +53,13 @@ export default class ProfileScreen extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
-          isLoading: false,
-          data: this._search(this.state.userId, responseJson)
+          data: this._search(this.state.userId, responseJson) || []
+        }, () => {
+            this.setState({ isLoading: false })
         });
 
         console.log('profil getdata', this.state.data);
-        this.forceUpdate();
+        // this.forceUpdate();
       })
       .catch((error) => {
         console.error(error);
@@ -94,12 +75,11 @@ export default class ProfileScreen extends Component {
   }
 
   render() {
-
-    const data = this.state.data;
+    const data = this.state.data || [];
 
     return (
       <Root>
-        <Container>
+        <ScrollView>
           <StatusBar barStyle="light-content" />
           <View style={styles.header}></View>
             <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
@@ -110,10 +90,10 @@ export default class ProfileScreen extends Component {
                 {this.state.isLoading ? <Spinner color={Colors.tintColor} /> : 
 
                   <View>
-                    <Text style={styles.tipus}>{data.uzletkoto_tipus}</Text>
-                    <Text style={styles.row}><Text style={styles.bold}>Email:</Text> {data.users_email}</Text>
-                    <Text style={styles.row}><Text style={styles.bold}>Kérdések száma:</Text> {data.users_kerdes}</Text>
-                    <Text style={styles.row}><Text style={styles.bold}>Válaszok száma:</Text> {data.users_valasz}</Text>
+                    {data.uzletkoto_tipus ? <Text style={styles.tipus}>{data.uzletkoto_tipus}</Text> : null}
+                    {data.users_email ?<Text style={styles.row}><Text style={styles.bold}>Email:</Text> {data.users_email}</Text> : null}
+                    {data.users_kerdes ? <Text style={styles.row}><Text style={styles.bold}>Kérdések száma:</Text> {data.users_kerdes}</Text> : null}
+                    {data.users_valasz ? <Text style={styles.row}><Text style={styles.bold}>Válaszok száma:</Text> {data.users_valasz}</Text> : null}
                     {data.uzletkoto_mobil_tel ? <Text style={styles.row}><Text style={styles.bold}>Mobil:</Text> {data.uzletkoto_mobil_tel}</Text> : null}
                     {data.uzletkoto_ceg ? <Text style={styles.row}><Text style={styles.bold}>Cég:</Text> {data.uzletkoto_ceg}</Text> : null}
                     {data.uzletkoto_szekhely ? <Text style={styles.row}><Text style={styles.bold}>Székhely:</Text> {data.uzletkoto_szekhely}</Text> : null}
@@ -123,7 +103,7 @@ export default class ProfileScreen extends Component {
                 
               </View>
           </View>
-        </Container>
+        </ScrollView>
       </Root>
     );
   }

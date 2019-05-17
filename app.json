@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Klassis App 3",
-    "slug": "klassis-3",
+    "name": "Klassis",
+    "slug": "klassis",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": [
@@ -15,7 +15,7 @@
       "image": "./assets/images/klassis-splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#715f75"
-    }, 
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -27,7 +27,9 @@
       "bundleIdentifier": "com.klassis.klassisapp2019"
     },
     "android": {
-      "package": "com.klassis.klassisapp2019"
+      "package": "com.klassis.klassisapp2019",
+      "publishBundlePath": "android\\app\\src\\main\\assets\\shell-app.bundle",
+      "publishManifestPath": "android\\app\\src\\main\\assets\\shell-app-manifest.json"
     }
   }
 }

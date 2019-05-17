@@ -81,8 +81,9 @@ export default class MunkatarsakScreen extends React.Component {
         this.arrayholder = responseJson;
 
         this.setState({
-          isLoading: false,
           data: responseJson
+        }, () => {
+          this.setState({ isLoading: false })
         });
 
         this.forceUpdate();
